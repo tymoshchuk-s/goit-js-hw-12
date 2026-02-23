@@ -37,7 +37,6 @@ img {
 .form {
   display: flex;
   justify-content: center;
-  margin-bottom: 30px;
   margin-top: 30px;
 }
 
@@ -104,7 +103,7 @@ img {
     justify-content: center;
     padding: 0;
     list-style: none;
-    margin: 0 auto;
+    margin: 20px auto;
     max-width: 1128px;
 }
 
@@ -215,78 +214,71 @@ img {
 
 /* #region loader */
 .loader-wrapper {
-    position: fixed;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    border-radius: 10px;
+    max-width: 80px;
+    margin: 0 auto;
+    padding: 5px;
 }
 
 .loader {
-    position: relative;
-    width: 48px;
-    height: 48px;
-    color: #ff3d00;
-    border-radius: 50%;
-    transform: rotateZ(45deg);
-    perspective: 1000px;
+    margin-top: 20px;
+    height: 80px;
+    aspect-ratio: 1;
+    display: grid;
 }
 
-.loader::before,
-.loader::after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: inherit;
-    height: inherit;
-    border-radius: 50%;
-    transform: rotateX(70deg);
-    animation: 1s spin linear infinite;
+.loader:before,
+.loader:after {
+    content: "";
+    --c: no-repeat linear-gradient(#6c8cff 0 0);
+    background: var(--c), var(--c);
+    background-size: 25% 50%;
+    animation: l4 1.5s infinite linear;
 }
 
-.loader::after {
-    color: #ff3d00;
-    transform: rotateY(70deg);
-    animation-delay: 0.4s;
+.loader:after {
+    transform: scale(-1);
 }
 
-@keyframes spin {
+@keyframes l4 {
 
     0%,
+    10% {
+        background-position: 33.4% 100%, 66.6% 100%
+    }
+
+    40% {
+        background-position: 33.4% 0, 100% 100%
+    }
+
+    70% {
+        background-position: 0 100%, 66.6% 0
+    }
+
     100% {
-        box-shadow: 0.2em 0 0 0 currentcolor;
-    }
-
-    12% {
-        box-shadow: 0.2em 0.2em 0 0 currentcolor;
-    }
-
-    25% {
-        box-shadow: 0 0.2em 0 0 currentcolor;
-    }
-
-    37% {
-        box-shadow: -0.2em 0.2em 0 0 currentcolor;
-    }
-
-    50% {
-        box-shadow: -0.2em 0 0 0 currentcolor;
-    }
-
-    62% {
-        box-shadow: -0.2em -0.2em 0 0 currentcolor;
-    }
-
-    75% {
-        box-shadow: 0 -0.2em 0 0 currentcolor;
-    }
-
-    87% {
-        box-shadow: 0.2em -0.2em 0 0 currentcolor;
+        background-position: 33.4% 100%, 66.6% 100%
     }
 }
 /* #endregion */
 
+/* #region load more */
+.load-more-container {
+    display: flex;
+    justify-content: center;
+}
+
+.load-more-btn {
+    padding: 10px 20px;
+    margin: 0px auto;
+    font-size: 1rem;
+    background-color: #4e75ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.load-more-btn:hover {
+    background-color: #6c8cff;
+}
+/* #endregion */

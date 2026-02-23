@@ -1,8 +1,9 @@
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
-const galleryEl = document.querySelector('.gallery');
+export const galleryEl = document.querySelector('.gallery');
 const loader = document.querySelector('#loader');
+export const loadMoreBtnEl = document.querySelector('#load-more-btn');
 
 export const lightbox = new SimpleLightbox('.gallery a', {
     captions: true,
@@ -28,7 +29,6 @@ export function createGallery(images) {
                 <a href="${largeImageURL}">
                     <img src="${webformatURL}" alt="${keywords}" loading="lazy" class="gallery-image" />
                 </a>
-                 <div class="info">
           <div class="image-info">
             <div class="info-item">
               <p class="info-title"><b>❤️ likes:</b></p>
@@ -47,7 +47,6 @@ export function createGallery(images) {
               <p class="info-value">${downloads}</p>
             </div>
           </div>
-        </div>
             </li>`;
             }
         )
@@ -57,16 +56,22 @@ export function createGallery(images) {
     lightbox.refresh();
 };
 
+export function clearGallery() {
+    galleryEl.innerHTML = '';
+};
+
 export function showLoader() {
-    return loader.hidden = false;
+    loader.hidden = false;
 };
 
 export function hideLoader() {
-    return loader.hidden = true;
+    loader.hidden = true;
 };
 
-export function clearGallery() {
-    return galleryEl.innerHTML = '';
+export function showLoadMoreButton() {
+    loadMoreBtnEl.hidden = false;
 };
-    
- 
+  
+export function hideLoadMoreButton() {
+    loadMoreBtnEl.hidden = true;
+};
