@@ -62,7 +62,7 @@ async function handleSubmit(event) {
         } else {
             createGallery(data.hits);
             input.value = '';
-            if (data.totalHits < PER_PAGE) {
+            if (data.totalHits <= PER_PAGE) {
                 iziToast.info({
                     message: `We're sorry, but you've reached the end of search results.`,
                     position: 'topRight',
