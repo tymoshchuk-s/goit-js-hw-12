@@ -51,23 +51,26 @@ async function handleSubmit(event) {
 
     try {
         const data = await getImagesByQuery(query, page);
-        
-
-        
-        if (data.hits.length == 0) {
+                
+        if (data.hits.length === 0) {
             iziToast.error({
                 message:
                     'Sorry, there are no images matching your search query. Please try again!',
                 position: 'topRight',
             });
-        
-        if (data.hits.length < PER_PAGE)
-
             hideLoadMoreButton();            
         } else {
             createGallery(data.hits);
             input.value = '';
-            showLoadMoreButton();
+            if (data.totalHits < PER_PAGE) {
+                iziToast.info({
+                    message: `We're sorry, but you've reached the end of search results.`,
+                    position: 'topRight',
+                });
+                hideLoadMoreButton()
+            } else {
+                showLoadMoreButton();
+            }
         }
     } catch (error) {
         iziToast.error({
@@ -93,7 +96,6 @@ try {
     const totalPages = Math.ceil(totalResult / PER_PAGE);
 
         if (page >= totalPages) {
-            
             iziToast.info({
                 message: `We're sorry, but you've reached the end of search results.`,
                 position: 'topRight',
@@ -106,13 +108,14 @@ try {
     
     
     const cardEl = document.querySelector('.gallery-item');
-    const cardHeight = cardEl.getBoundingClientRect().height;
-
-    window.scrollBy({
-        left: 0,
-        top: cardHeight * 2,
-        behavior: 'smooth'
-    })
+    if (cardEl) {
+        const cardHeight = cardEl.getBoundingClientRect().height;
+        window.scrollBy({
+            left: 0,
+            top: cardHeight * 2,
+            behavior: 'smooth'
+        });
+    }
     } catch (error) {
         iziToast.error({
             message: `Error: ${error.message}`,
@@ -120,5 +123,5 @@ try {
         });
     } finally {
     hideLoader();
-    };
+    }
 }
